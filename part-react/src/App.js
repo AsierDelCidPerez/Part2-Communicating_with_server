@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import React, {useState} from 'react';
 import Note from './components/Note';
+import axios from 'axios';
 
 const App = () => {
   const [notes, setNotes] = useState([]);
