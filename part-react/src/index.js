@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import App from './exercises/ex3/App2';
 import reportWebVitals from './reportWebVitals';
 import axios from 'axios';
 
@@ -33,7 +33,7 @@ const notes = [
 
 root.render(
   <React.StrictMode>
-    <App notes={notes}/>
+    <App/>
   </React.StrictMode>
 );
 
