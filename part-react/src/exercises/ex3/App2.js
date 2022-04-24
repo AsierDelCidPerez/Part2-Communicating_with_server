@@ -15,7 +15,6 @@ const App2 = () => {
               countries: response.data, filtred: response.data
           }));
       }, [])
-
       useEffect(() => {
           if(countries.filtred.length === 1){
                 axios.get(`http://api.weatherstack.com/current?access_key=3c73bc7977e5c3113153b79012c8ed28&query=${countries.filtred[0].capital}`).then(response =>

@@ -13,11 +13,12 @@ const Report = ({countries, weather}) => {
         return (
             <div>
                 {
-                    countries.map((country, i) => <p key={i}>{country.name}</p>)
+                    countries.map((country, i) => <p key={i}>{country.name}<button>Show</button></p>)
                 }
             </div>
         )
     }else if(countries.length === 1){
+        console.log(weather);
         return (
             <div>
                 <Header text={countries[0].name}/>
