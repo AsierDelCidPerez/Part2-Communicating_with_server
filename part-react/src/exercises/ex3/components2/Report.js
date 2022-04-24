@@ -1,19 +1,8 @@
 import axios from 'axios';
 import Header from './Header';
-import React, {useState, useEffect} from 'react';
+import Weather from './Weather'
 
-const Report = ({countries}) => {
-    const weather = [];
-    axios.get(`http://api.weatherstack.com/current?access_key=3c73bc7977e5c3113153b79012c8ed28&query=Madrid`)
-    .then(response => {
-        weather.push(response.data.current.temperature);
-        weather.push(response.data.current.weather_icons[0]);
-        weather.push(response.data.current.wind_speed);
-        weather.push(response.data.current.wind_dir);
-    })
-
-    console.log(weather);
-
+const Report = ({countries, weather}) => {
     if(countries.length >= 10){
         return (
             <div>
@@ -41,18 +30,12 @@ const Report = ({countries}) => {
                     }
                 </ul>
                 <img src={countries[0].flags.png}/>
-                {
-                    axios.get(`http://api.weatherstack.com/current?access_key=3c73bc7977e5c3113153b79012c8ed28&query=${countries[0].capital}`)
-                            .then(response => (<div>
-                                    <h1>Weather in <b>{countries[0].capital}</b></h1>
-                                    <p><b>Temperature</b>: {response.data.current.temperature}ºC</p>
-                                    <img src={response.data.current.weather_icons[0]}/>
-                                    <p><b>Wind</b>: {response.data.current.wind_speed} direction {response.data.current.wind_dir}</p>
-                                </div>)
-                            )
-                }
+                <Weather weather={weather} />
+
             </div>
         )
+    }else{
+        return <p>No se hanm encontrado resultados {countries.length}</p>
     }
 }
 

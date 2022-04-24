@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-const Filtro = ({countries, setCountries}) => {
-    const updateReport = event => setCountries({
+const Filtro = ({countries, setCountries, setWeather}) => {
+    const updateReport = event => {
+    setCountries({
         ...countries, filtred : countries.countries.filter(country => country.name.toLowerCase().match(event.target.value.toLowerCase()))
     })
+    }
+
 
     return (
         <div>
