@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './exercises/ex3/App2';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
 import axios from 'axios';
 
