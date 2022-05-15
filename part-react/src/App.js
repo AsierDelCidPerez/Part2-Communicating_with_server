@@ -27,7 +27,7 @@ const App = () => {
   const addNote = event => {
     event.preventDefault();
     const noteObj = {
-      id: notes.length+1,
+      //id: notes.length+1,
       content: newNote,
       date: new Date().toString(),
       important: Math.random() > .5,
