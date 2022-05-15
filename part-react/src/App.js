@@ -33,7 +33,7 @@ const App = () => {
       important: Math.random() > .5,
     };
     axios.post('http://localhost:3001/notes', noteObj)
-        .then(response => console.log(response));
+        .then(response => (response.status === 201) ? setNotes(notes.concat(noteObj)) : null);
     setNewNote("a new note...");
   }
   return (
