@@ -6,7 +6,10 @@ import axios from 'axios';
 
 const App = () => {
   const [notes, setNotes] = useState([]);
-  const [newNote, setNewNote] = useState("a new note...");
+  const [newNote, setNewNote] = useState({
+    text : "a new note...",
+    important : false
+  });
   const [showAll, setShowAll] = useState(true);
 
   useEffect(() => {
@@ -17,8 +20,18 @@ const App = () => {
 
   const notesToShow = showAll ? notes : notes.filter(note => note.important===true)
 
+  const actualizaImportancia = event => {
+    setNewNote({
+      ...newNote, 
+      important: event.target.checked
+    })
+  }
+
   const actualizarNewNote = event => {
-    setNewNote(event.target.value);
+    setNewNote({
+      ...newNote,
+      text : event.target.value
+    });
   }
   const actualizaPreferencias = event => {
     event.preventDefault();
@@ -27,13 +40,12 @@ const App = () => {
   const addNote = event => {
     event.preventDefault();
     const noteObj = {
-      //id: notes.length+1,
-      content: newNote,
+      content: newNote.text,
       date: new Date().toString(),
-      important: Math.random() > .5,
+      important: newNote.important,
     };
     axios.post('http://localhost:3001/notes', noteObj)
-        .then(response => (response.status === 201) ? setNotes(notes.concat(noteObj)) : null);
+        .then(response => (response.status === 201) ? setNotes(notes.concat(response.data)) : null);
     setNewNote("a new note...");
   }
   return (
@@ -45,7 +57,8 @@ const App = () => {
         }
       </ul>
       <form>
-        <input type="text" value={newNote} onChange={actualizarNewNote}/><br/>
+        <input type="text" value={newNote.text} onChange={actualizarNewNote}/><br/>
+        <label><input type="checkbox" onChange={actualizaImportancia}/>Importancia de la nota</label><br/>
         <button onClick={actualizaPreferencias}>{showAll ? ("Mostrar solo notas importantes") : ("Mostrar todas las notas")}</button><br/>
         <button type="submit" onClick={addNote}>Save</button>
       </form>
