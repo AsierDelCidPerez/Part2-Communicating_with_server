@@ -35,7 +35,10 @@ const App = () => {
     noteService.update(id, changedNote)
           .then(response => 
             setNotes(notes.map(myNote => myNote.id === id ? response : myNote))
-          )
+          ).catch(error => {
+            alert(`An error ocurred deleting the note: '${note.content}'`)
+            setNotes(notes.filter(myNote => myNote.id !== id))
+          })
   }
 
   const actualizarNewNote = event => {

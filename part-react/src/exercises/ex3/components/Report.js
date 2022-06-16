@@ -6,7 +6,7 @@ const Report = ({phonebook}) => {
         <div>
             <Header text="Numbers"/>
             <ul>
-                {phonebook.filtred.map((phone, i) => <li key={i}><Person name={phone.name} tel={phone.number}/></li>)}
+                {phonebook.filtred.map((phone, i) => <Person key={i} name={phone.name} tel={phone.number} id={phone}/>)}
             </ul>
         </div>
     )
