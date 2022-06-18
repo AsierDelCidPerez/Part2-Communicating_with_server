@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Header from './Header';
+import phoneService from '../services/phonebook'
 
 const Formulario = ({phonebook}) => {
     const [phoneBook, setPhonebook] = phonebook;
@@ -20,6 +21,7 @@ const Formulario = ({phonebook}) => {
             name : fields.name, number : fields.number
         })
         });
+        phoneService.addNew({name : fields.name, number : fields.number})
         setFields({
             name : "", number : ""
         });

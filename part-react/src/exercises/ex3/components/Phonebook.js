@@ -5,6 +5,8 @@ import Report from './Report';
 import Filtro from './Filtro';
 import axios from 'axios';
 
+const cambios = []
+
 const Phonebook = () => {
     const [phonebook, setPhonebook] = useState({
         report : [], filtred : []
@@ -15,14 +17,14 @@ const Phonebook = () => {
             .then(response => setPhonebook({
                 report : response.data, filtred: response.data
             }))
-    }, [])
+    }, cambios)
     
     return (
         <>
             <Header text="Phonebook"/>
             <Filtro phonebook={[phonebook, setPhonebook]}/>
             <Formulario phonebook={[phonebook, setPhonebook]}/>
-            <Report phonebook={phonebook}/>
+            <Report phonebook={[phonebook, setPhonebook]}/>
         </>
     )
 }
