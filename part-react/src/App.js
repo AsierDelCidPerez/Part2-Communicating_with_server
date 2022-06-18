@@ -3,6 +3,8 @@ import './App.css';
 import React, {useState, useEffect} from 'react';
 import Note from './components/Note';
 import noteService from './services/notes'
+import Notification from './components/Notification'
+import Footer from './components/Footer'
 
 const App = () => {
   const [notes, setNotes] = useState([]);
@@ -11,6 +13,7 @@ const App = () => {
     important : false
   });
   const [showAll, setShowAll] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     noteService.getAll()
@@ -36,7 +39,9 @@ const App = () => {
           .then(response => 
             setNotes(notes.map(myNote => myNote.id === id ? response : myNote))
           ).catch(error => {
-            alert(`An error ocurred deleting the note: '${note.content}'`)
+            // alert(`An error ocurred deleting the note: '${note.content}'`)
+            setErrorMessage(`Note '${changedNote.content}' was already deleted from server`)
+            setTimeout(() => setErrorMessage(null), 5000)
             setNotes(notes.filter(myNote => myNote.id !== id))
           })
   }
@@ -65,6 +70,7 @@ const App = () => {
   return (
     <div>
       <h1>Notes</h1>
+      <Notification message={errorMessage}/>
       <ul>
         {
           notesToShow.map(note => <Note key={note.id} note={note} toggleImportance={() => toggleImportance(note.id)}/>)
@@ -76,6 +82,7 @@ const App = () => {
         <button onClick={actualizaPreferencias}>{showAll ? ("Mostrar solo notas importantes") : ("Mostrar todas las notas")}</button><br/>
         <button type="submit" onClick={addNote}>Save</button>
       </form>
+      <Footer/>
     </div>
   );
 }
